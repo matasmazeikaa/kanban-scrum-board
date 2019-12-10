@@ -35,7 +35,7 @@ const Column = (props) => {
     const handleRenameTitleOpen = () => {
         setTaskTitleRenameOpen(!taskTitleRenameOpen)
     }
-    console.log(props)
+
     return (
         <Droppable droppableId={String(props.id)}>
             {(provided) => (
