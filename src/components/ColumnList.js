@@ -3,7 +3,8 @@ import Column from './Column';
 import { addColumn, sortTask, deleteColumn } from '../actions';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
-import {Container, TextArea, Modal, AddColumnButton} from './styledcomponents/columnliststyled';
+import { Container, TextArea } from './styledcomponents/columnliststyled';
+import { Button } from './styledcomponents/button';
 
 const ColumnList = (props) => {
   const [columnTitleInput, setColumnTitleInput] = useState('');
@@ -44,10 +45,10 @@ const ColumnList = (props) => {
           {columnTitleFormOpen &&
             <div style={{margin: '8px'}}>
               <TextArea onChange={(e) => setColumnTitleInput(e.target.value)} />
-              <button onClick={handleAddColumn} type="button" className="btn btn-success">Add Column</button>
+              <Button onClick={handleAddColumn}>Add Column</Button>
             </div>
           }
-          {!columnTitleFormOpen && <AddColumnButton onClick={() => { setColumnTitleFormOpen(!columnTitleFormOpen)}} type="button" className="btn btn-success">Add Column</AddColumnButton>}
+          {!columnTitleFormOpen && <Button addcolumn onClick={() => { setColumnTitleFormOpen(!columnTitleFormOpen)}} id='add-column-btn'>Add Column</Button>}
         </Container>
       </DragDropContext>
     </div>
@@ -59,3 +60,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(ColumnList);
+export { ColumnList };

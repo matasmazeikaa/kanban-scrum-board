@@ -3,7 +3,8 @@ import { Draggable } from 'react-beautiful-dnd';
 import { editTask, deleteTask } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {Container, Modal, ModalContent, Close, TextArea} from './styledcomponents/taskstyled'
+import {Container, Modal, ModalContent, Close, TextArea} from './styledcomponents/taskstyled';
+import { Button } from './styledcomponents/button';
 
 const Task = (props) => {
     const taskInfoTo = {
@@ -52,8 +53,8 @@ const Task = (props) => {
                         <input value={taskTitleRename} onChange={(e) => setTaskTitleRename(e.target.value)}/>
                         <label>Task description:</label>
                         <TextArea value={taskDescription} onChange={(e) => setTaskDescription(e.target.value)}/>
-                        <button onClick={handleTaskEdit} type="button" className="btn btn-success" style={{marginTop: '8px', marginBottom: '8px'}}>Save Changes</button>
-                        <button onClick={handleTaskDeletion} type="button" className="btn btn-danger">Delete task</button>
+                        <Button onClick={handleTaskEdit} style={{marginTop: '8px', marginBottom: '8px'}}>Save Changes</Button>
+                        <Button secondary onClick={handleTaskDeletion}>Delete task</Button>
                         <Link to={taskInfoTo}>Task information page</Link>
                     </ModalContent>
                 </Modal>

@@ -8,20 +8,14 @@ import ColumnList from './ColumnList';
 import { connect } from 'react-redux';
 import TaskInformation from './TaskInformation';
 
-const App = (props) => {
-
-  return (
+const App = props => (
     <Router>
       <Switch>
         <Route exact path='/' component={ColumnList}/>
-        <Route exact path='/:id' render={(props) => {
-          return <TaskInformation {...props} />
-        }} />
+        <Route exact path='/:id' render={props => <TaskInformation {...props} />} />
       </Switch>
     </Router>
-
-  );
-}
+);
 
 const mapStateToProps = state => ({
   columns: state.columns

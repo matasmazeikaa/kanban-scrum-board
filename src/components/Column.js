@@ -4,6 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import { addTask, deleteColumn, renameColumn } from '../actions';
 import { Container, Title, TaskList, TextArea } from './styledcomponents/columnstyled';
+import { Button } from './styledcomponents/button';
 
 const Column = (props) => {
     const [taskTitle, setTaskTitle] = useState('');
@@ -41,13 +42,13 @@ const Column = (props) => {
             {(provided) => (
                 <div>
                     <Container {...provided.droppableProps} ref={provided.innerRef}>
-                        <button onClick={handleDeleteColumn} type="button" className="btn btn-danger" style={{ width: '45%', margin: '8px' }}>Delete Column</button>
+                        <Button secondary onClick={handleDeleteColumn}>Delete Column</Button>
                         {!taskTitleRenameOpen ?
                             <Title onClick={handleRenameTitleOpen}>{props.title}</Title>
                             :
                             <div>
                                 <input value={taskTitleRename} onChange={(e) => setTaskTitleRename(e.target.value)} />
-                                <button onClick={handleRenameColumn}>Save Title</button>
+                                <Button onClick={handleRenameColumn}>Save Title</Button>
                             </div>
                         }
                         <TaskList>
@@ -69,10 +70,10 @@ const Column = (props) => {
                     {taskTitleInputOpen &&
                         <div>
                             <TextArea onChange={(e) => setTaskTitle(e.target.value)} placeholder="Enter task title..." />
-                            <button onClick={handleAddTask} type="button" className="btn btn-success" style={{ width: '40%' }}>Add Task</button>
+                            <Button onClick={handleAddTask}>Add Task</Button>
                         </div>
                     }
-                    {!taskTitleInputOpen && <button onClick={() => setTaskTitleInputOpen(!taskTitleInputOpen)} type="button" className="btn btn-success" style={{ width: '40%', margin: '8px' }}>Add Task</button>}
+                    {!taskTitleInputOpen && <Button onClick={() => setTaskTitleInputOpen(!taskTitleInputOpen)}>Add Task</Button>}
                 </div>
             )}
         </Droppable>
@@ -84,3 +85,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Column);
+export { Column };

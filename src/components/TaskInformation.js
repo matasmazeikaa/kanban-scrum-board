@@ -1,29 +1,47 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteTask } from '../actions';
+import { Button } from './styledcomponents/button';
 
 const TaskInformation = (props) => {
-    const data = props.location.state;
+    let columnId = ''
+    let currentTaskData = null;
+    let columnTitle = '';
+
+    props.columns.map(column => {
+        column.tasks.map(task => {
+            if (task.id === props.match.params.id) {
+                columnId = column.id;
+                currentTaskData = task;
+                columnTitle = column.title;
+            };
+        })
+    })
+
     const handleBackToColumnList = () => {
         props.history.goBack();
     }
 
     const handleTaskDelete = () => {
-        props.dispatch(deleteTask(props.match.params.id, data.columnId))
+        props.dispatch(deleteTask(props.match.params.id, columnId))
         props.history.goBack();
     }
 
     return (
         <div style={{color: 'white'}}>
-            <h3> Task title: {data.title}</h3>
-            <h3> Column Title: {data.columnTitle}</h3>
-            <h3> Task description: {data.description || '(No task description)'}</h3>
-            <h3> Task last edited: {data.lastEdited || '(Task hasn\'t been edited)'}</h3>
-            <h3> Task created: {data.taskCreation}</h3>
-            <button onClick={handleBackToColumnList} type="button" class="btn btn-primary">To Column List</button>
-            <button onClick={handleTaskDelete}type="button" class="btn btn-danger">Delete task</button>
+            <h3> Task title: {currentTaskData.title}</h3>
+            <h3> Column Title: {columnTitle}</h3>
+            <h3> Task description: {currentTaskData.description || '(No task description)'}</h3>
+            <h3> Task last edited: {currentTaskData.lastEdited || '(Task hasn\'t been edited)'}</h3>
+            <h3> Task created: {currentTaskData.taskCreationTime}</h3>
+            <Button onClick={handleBackToColumnList}>To Column List</Button>
+            <Button secondary onClick={handleTaskDelete}>Delete task</Button>
         </div>
     )
 }
 
-export default connect()(TaskInformation);
+const mapStateToProps = state => ({
+    columns: state.columns
+});
+  
+export default connect(mapStateToProps)(TaskInformation);

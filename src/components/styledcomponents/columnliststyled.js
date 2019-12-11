@@ -11,10 +11,4 @@ const TextArea = Styled(Textarea)`
   overflow: hidden;
 `
 
-const AddColumnButton = Styled.button`
-  width: 400px;
-  height: 50px;
-  margin-top: 8px;
-`
-
-export {Container, TextArea, AddColumnButton};
+export { Container, TextArea };
